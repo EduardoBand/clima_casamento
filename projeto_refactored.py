@@ -7,6 +7,7 @@ import json
 import os
 from datetime import datetime, timedelta, date
 
+
 st.title('Histórico de condição climática')
 st.subheader('Consulte as temperaturas e os índices de chuva com registros dos últimos 10 anos.')
 st.sidebar.title('Insira as informações')
@@ -57,9 +58,13 @@ if st.sidebar.button("Pesquisar"):
 
     file_name = "response.json"
 
-    response = requests.get(url="https://archive-api.open-meteo.com/v1/archive", params=payload).json()
-    with open(file_name, "w") as arquivo:
-        json.dump(response, arquivo)
+    if os.path.exists(file_name):
+        with open(file_name, "r") as arquivo:
+            response = json.load(arquivo)
+    else:
+        response = requests.get(url="https://archive-api.open-meteo.com/v1/archive", params=payload).json()
+        with open(file_name, "w") as arquivo:
+            json.dump(response, arquivo)
 
     daily_data = response.get('daily', {})
     df_daily = pd.DataFrame(daily_data)
@@ -104,7 +109,7 @@ if st.sidebar.button("Pesquisar"):
     st.title('Histórico por Hora:watch:')
     st.dataframe(filtered_hourly_df)
     
-#gráficos    
+#gráfico    
     st.title('Gráfico de Temperatura:mostly_sunny:')
     chart_data = pd.DataFrame(filtered_daily_df)
     st.line_chart(
@@ -120,3 +125,6 @@ if st.sidebar.button("Pesquisar"):
         y=["Horas de chuva"],
         color=["#1E90FF"]
     )
+
+ #https://docs.streamlit.io/develop/api-reference/charts   
+#-23.758344762315005, -46.454074119562854
