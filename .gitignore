@@ -162,7 +162,3 @@ cython_debug/
 #.idea/
 
 
-# Project files 
-projeto_com_json.py
-projeto_refactored.py
-
