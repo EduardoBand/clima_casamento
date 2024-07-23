@@ -7,6 +7,17 @@ def create_weather_dataframe(
     weather_frequency_dict: Dict[str, Any], 
     exclude_columns: Optional[List[str]] = []
 ) -> pd.DataFrame:
+    """
+    This function creates the dataframe according to the parameters set, together with new column names and drops of useless ones.
+    
+    Parameters:
+        weather_frequency_dict: creates a dictionary with the values from the df_weather
+        exclude_columns: exclude the undesired columns.
+        
+    Returns: 
+        pd.DataFrame: create dataframe. 
+    
+    """
     df_weather = pd.DataFrame(weather_frequency_dict)
     df_weather["time"] = pd.to_datetime(df_weather["time"])
 
@@ -28,6 +39,17 @@ def create_weather_dataframe(
 
 
 def filter_weather_dataframe(df: pd.DataFrame, date_to_filter: datetime) -> pd.DataFrame:
+    """
+    This function filters the weather dataframe.
+    
+    Parameters:
+        df(pd.DataFrame): historical dataframe to filter. 
+        date_to_filter(datetime): user specified time to filter within the dataframe.
+        
+    Returns: 
+        pd.DataFrame: filtered dataframe. 
+    
+    """
     df_copy = df.copy()
     df_copy_filtered = df_copy[
         (df_copy["Data"].dt.month == date_to_filter.month)

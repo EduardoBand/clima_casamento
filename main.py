@@ -6,7 +6,12 @@ import streamlit as st
 
 
 def main():
-    st.title("Histórico de condição climática")
+    """
+    This function creates a dashboard with historical weather data in a 10-year-span using the functions in the app. 
+    
+    """
+    
+    st.title("Histórico de condição climática :umbrella_with_rain_drops:")
     st.subheader("Consulte as temperaturas e os índices de chuva com registros dos últimos 10 anos.")
 
     st.sidebar.title("Insira as informações")
